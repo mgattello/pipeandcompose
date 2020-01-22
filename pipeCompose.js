@@ -11,10 +11,21 @@ stringReverse = (string) => string
     .reverse()
     .join();
 
-const name = pipe(
+const inverseNamePipe = pipe(
     getName,
     stringToUppercase,
     stringReverse,
 )({name: 'Marco'})
 
-console.log(name)
+console.log(inverseNamePipe)
+
+// Compose functionality- it's a reverse F(x) of Pipe
+compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
+
+const inverseNameCompose = compose(
+    stringReverse,
+    stringToUppercase,
+    getName
+)({name: 'Marco'})
+
+console.log(inverseNameCompose)
